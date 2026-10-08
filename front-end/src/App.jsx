@@ -3,10 +3,32 @@ import guitarLogo from './assets/guitar.png'
 import './App.css'
 
 function App() {
+  const STRING_Y_POS_SCALE = 53;
+
   const [chords, setChords] = useState([]);
   const [displayedChords, setDisplayedChords] = useState([]);
   const [selectedNote, setSelectedNote] = useState("");
   const [selectedType, setSelectedType] = useState("");
+  const frets = [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ];
   const notes = [
     "A",
     "A#",
@@ -101,6 +123,11 @@ function App() {
             <div className="chord-display">
               <div className="fretboard">
                 <div className="string-first">
+                  {frets.map((pos, i) => (
+                    chord.chordShapes[0].frets[0] != 0 && 
+                    chord.chordShapes[0].frets[0] === pos && 
+                    <div className="dot" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+                  ))}
                   <div className="fret">
                   </div>
                   <div className="fret">
@@ -113,6 +140,11 @@ function App() {
                   </div>
                 </div>
                 <div className="string">
+                  {frets.map((pos, i) => (
+                    chord.chordShapes[0].frets[1] != 0 && 
+                    chord.chordShapes[0].frets[1] === pos && 
+                    <div className="dot" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+                  ))}
                   <div className="fret">
                   </div>
                   <div className="fret">
@@ -125,6 +157,11 @@ function App() {
                   </div>
                 </div>
                 <div className="string">
+                  {frets.map((pos, i) => (
+                    chord.chordShapes[0].frets[2] != 0 && 
+                    chord.chordShapes[0].frets[2] === pos && 
+                    <div className="dot" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+                  ))}
                   <div className="fret">
                   </div>
                   <div className="fret">
@@ -137,6 +174,11 @@ function App() {
                   </div>
                 </div>
                 <div className="string">
+                  {frets.map((pos, i) => (
+                    chord.chordShapes[0].frets[3] != 0 && 
+                    chord.chordShapes[0].frets[3] === pos && 
+                    <div className="dot" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+                  ))}
                   <div className="fret">
                   </div>
                   <div className="fret">
@@ -149,6 +191,16 @@ function App() {
                   </div>
                 </div>
                 <div className="string">
+                  {frets.map((pos, i) => (
+                    chord.chordShapes[0].frets[4] != 0 && 
+                    chord.chordShapes[0].frets[4] === pos && 
+                    <div className="dot" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+                  ))}
+                  {frets.map((pos, i) => (
+                    chord.chordShapes[0].frets[5] != 0 && 
+                    chord.chordShapes[0].frets[5] === pos && 
+                    <div className="dot-two" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+                  ))}
                   <div className="fret">
                   </div>
                   <div className="fret">

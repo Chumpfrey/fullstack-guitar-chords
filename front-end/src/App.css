@@ -1,5 +1,5 @@
 body {
-    background: repeating-radial-gradient( #0B0C10, #1F2833);
+    background: repeating-radial-gradient( var(--color-two), var(--color-one));
     border: transparent;
 }
 
@@ -21,8 +21,8 @@ body {
 }
 
 #generateButton {
-    background-color: #1F2833;
-    border-color: #45A29E;
+    background-color: var(--color-one);
+    border-color: var(--color-four);
     font-size: 15px;
     height: 40px;
     margin-top: 10px;
@@ -35,7 +35,7 @@ body {
 }
 
 #header {
-    color: #66FCF1;
+    color: var(--color-three);
     border-bottom: solid;
     position: relative;
 }
@@ -49,7 +49,7 @@ body {
 }
 
 #title {
-    color: #66FCF1;
+    color: var(--color-three);
     position: relative;
 }
 
@@ -62,12 +62,12 @@ body {
 .chord-display {
     border: solid;
     border-left: 0px;
-    color: #45A29E;
+    color: var(--color-four);
     display: grid;
 }
 
 .chord-display-label {
-    color: #45A29E;
+    color: var(--color-four);
     display: grid;
     grid-template-columns: repeat(6, 1fr);
 }
@@ -76,7 +76,31 @@ body {
     border-top: solid;
     border-left: solid;
     border-right: solid;
-    color: #45A29E;
+    color: var(--color-four);
+}
+
+.dot {
+    background-color: var(--color-five);
+    border: solid;
+    border-radius: 50%;
+    color: var(--color-five);
+    height: 5px;
+    margin-left: -6px;
+    margin-top: -60px;
+    position: absolute;
+    width: 5px;
+}
+
+.dot-two {
+    background-color: var(--color-five);
+    border: solid;
+    border-radius: 50%;
+    color: var(--color-five);
+    height: 5px;
+    margin-left: 22px;
+    margin-top: -60px;
+    position: absolute;
+    width: 5px;
 }
 
 .fret {
@@ -94,19 +118,20 @@ body {
 .fretboard {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    position: relative;
 }
 
 .note-button {
-    background-color: #1F2833;
-    border-color: #45A29E;
+    background-color: var(--color-one);
+    border-color: var(--color-four);
     font-size: 40px;
     height: 75px;
     width: 75px;
 }
 
 .note-button.selected {
-    background-color: #1F2833;
-    border-color: #1F2833;
+    background-color: var(--color-one);
+    border-color: var(--color-one);
     font-size: 40px;
     height: 75px;
     width: 75px;
@@ -124,7 +149,7 @@ body {
 }
 
 .tracked-chord {
-    border-color: #45A29E;
+    border-color: var(--color-four);
     display: grid;
     margin-bottom: 20px;
     margin-right: 20px;
