@@ -61,6 +61,14 @@
 ### https://react.dev/learn/responding-to-events
 ## JS array iteration
 ### https://www.w3schools.com/jsref/jsref_foreach.asp
+## HTML angle bracket
+### https://www.w3schools.com/html/html_entities.asp
+## Javascript guide & info
+### https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide
+## JS removing element from array
+### https://stackoverflow.com/questions/3954438/how-to-remove-item-from-array-by-value
+## JS copy array not a reference
+### https://stackoverflow.com/questions/7486085/how-to-create-a-copy-of-a-javascript-array-instead-of-a-reference
 
 
 

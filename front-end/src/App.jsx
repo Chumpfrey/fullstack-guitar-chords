@@ -2,13 +2,10 @@ import { useState, useEffect } from 'react'
 import guitarLogo from './assets/guitar.png'
 import './App.css'
 
-function App() {
+function DisplayUniqueLayout({chord, index, displayedChords, setDisplayedChords}) {
+  const NUM_POSITIONS = 6;
   const STRING_Y_POS_SCALE = 53;
-
-  const [chords, setChords] = useState([]);
-  const [displayedChords, setDisplayedChords] = useState([]);
-  const [selectedNote, setSelectedNote] = useState("");
-  const [selectedType, setSelectedType] = useState("");
+  const [layoutIndex, changeLayoutIndex] = useState(0);
   const frets = [
     0,
     1,
@@ -29,6 +26,138 @@ function App() {
     16,
     17
   ];
+
+  function handleCloseClick(index) {
+    if(index != -1) {
+      var result = displayedChords.slice();
+      result.splice(index, 1);
+      setDisplayedChords(result);
+    }
+  }
+
+  function smallestElement(list) {
+    if(list.length < 0)
+      return 0;
+
+    var result = list[0];
+
+    for(let step = 0; step < list.length; ++step) {
+      if(list[step] < result && list[step] >= 0)
+        result = list[step];
+    }
+
+    return result;
+  }
+
+  return (
+    <div key={chord.id} className="tracked-chord">
+      <div className="control-display">
+        <button className="control-close-button" onClick={() => handleCloseClick(index)}>x</button>
+      </div>
+      <div className="chord-display-title">
+        <button className="right-button" onClick={() => changeLayoutIndex((layoutIndex + 1) % chord.chordShapes.length)}>
+          &gt;
+        </button>
+        <div className="display-title">
+          {chord.name} {chord.type} {smallestElement(chord.chordShapes[layoutIndex].frets)} {chord.chordShapes[layoutIndex].frets}
+        </div>
+        <button className="left-button" onClick={() => changeLayoutIndex((layoutIndex - 1) < 0 ? (chord.chordShapes.length - 1) : layoutIndex - 1)}>
+          &lt;
+        </button>
+      </div>
+      <div className="chord-display">
+        <div className="fretboard">
+          <div className="string-first">
+            {frets.map((pos, i) => (
+              chord.chordShapes[layoutIndex].frets[0] != 0 && 
+              chord.chordShapes[layoutIndex].frets[0] === pos && 
+              <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+            ))}
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret-last"/>
+          </div>
+          <div className="string">
+            {frets.map((pos, i) => (
+              chord.chordShapes[layoutIndex].frets[1] != 0 && 
+              chord.chordShapes[layoutIndex].frets[1] === pos && 
+              <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+            ))}
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret-last"/>
+          </div>
+          <div className="string">
+            {frets.map((pos, i) => (
+              chord.chordShapes[layoutIndex].frets[2] != 0 && 
+              chord.chordShapes[layoutIndex].frets[2] === pos && 
+              <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+            ))}
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret-last"/>
+          </div>
+          <div className="string">
+            {frets.map((pos, i) => (
+              chord.chordShapes[layoutIndex].frets[3] != 0 && 
+              chord.chordShapes[layoutIndex].frets[3] === pos && 
+              <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+            ))}
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret-last"/>
+          </div>
+          <div className="string">
+            {frets.map((pos, i) => (
+              chord.chordShapes[layoutIndex].frets[4] != 0 && 
+              chord.chordShapes[layoutIndex].frets[4] === pos && 
+              <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+            ))}
+            {frets.map((pos, i) => (
+              chord.chordShapes[layoutIndex].frets[5] != 0 && 
+              chord.chordShapes[layoutIndex].frets[5] === pos && 
+              <div className="dot-two" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+            ))}
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret"/>
+            <div className="fret-last"/>
+          </div>
+        </div>
+      </div>
+      <div className="chord-display-label">
+        <div style={{marginLeft: "-20px"}}>{chord.chordShapes[layoutIndex].fingers[0] != 0 && 
+          chord.chordShapes[layoutIndex].fingers[0]}</div>
+        <div style={{marginLeft: "-12px"}}>{chord.chordShapes[layoutIndex].fingers[1] != 0 && 
+          chord.chordShapes[layoutIndex].fingers[1]}</div>
+        <div style={{marginLeft: "-2px"}}>{chord.chordShapes[layoutIndex].fingers[2] != 0 && 
+          chord.chordShapes[layoutIndex].fingers[2]}</div>
+        <div style={{marginRight: "-4px"}}>{chord.chordShapes[layoutIndex].fingers[3] != 0 && 
+          chord.chordShapes[layoutIndex].fingers[3]}</div>
+        <div style={{marginRight: "-15px"}}>{chord.chordShapes[layoutIndex].fingers[4] != 0 && 
+          chord.chordShapes[layoutIndex].fingers[4]}</div>
+        <div style={{marginRight: "-20px"}}>{chord.chordShapes[layoutIndex].fingers[5] != 0 && 
+          chord.chordShapes[layoutIndex].fingers[5]}</div>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [chords, setChords] = useState([]);
+  const [displayedChords, setDisplayedChords] = useState([]);
+  const [selectedNote, setSelectedNote] = useState("");
+  const [selectedType, setSelectedType] = useState("");
+  
   const notes = [
     "A",
     "A#",
@@ -76,6 +205,10 @@ function App() {
     setSelectedNote(item);
   }
 
+  function handleResetClick() {
+    setDisplayedChords([]);
+  }
+
   return (
     <div>
       <div id="header">
@@ -109,120 +242,18 @@ function App() {
           )}
         </select>
 
-        <button id="generateButton" onClick={handleGenClick}>
-          Generate
-        </button>
+        <div id="track-op-container">
+          <button className="track-op-buttons" onClick={handleGenClick}>
+            Generate
+          </button>
+          <button className="track-op-buttons" onClick={handleResetClick}>
+            Reset
+          </button>
+        </div>
       </div>
-
       <div id="chord-track">
-        {displayedChords.map(chord => (
-          <div key={chord.id} className="tracked-chord">
-            <div className="chord-display-title">
-              {chord.name} {chord.type} 
-            </div>
-            <div className="chord-display">
-              <div className="fretboard">
-                <div className="string-first">
-                  {frets.map((pos, i) => (
-                    chord.chordShapes[0].frets[0] != 0 && 
-                    chord.chordShapes[0].frets[0] === pos && 
-                    <div className="dot" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
-                  ))}
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret-last">
-                  </div>
-                </div>
-                <div className="string">
-                  {frets.map((pos, i) => (
-                    chord.chordShapes[0].frets[1] != 0 && 
-                    chord.chordShapes[0].frets[1] === pos && 
-                    <div className="dot" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
-                  ))}
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret-last">
-                  </div>
-                </div>
-                <div className="string">
-                  {frets.map((pos, i) => (
-                    chord.chordShapes[0].frets[2] != 0 && 
-                    chord.chordShapes[0].frets[2] === pos && 
-                    <div className="dot" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
-                  ))}
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret-last">
-                  </div>
-                </div>
-                <div className="string">
-                  {frets.map((pos, i) => (
-                    chord.chordShapes[0].frets[3] != 0 && 
-                    chord.chordShapes[0].frets[3] === pos && 
-                    <div className="dot" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
-                  ))}
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret-last">
-                  </div>
-                </div>
-                <div className="string">
-                  {frets.map((pos, i) => (
-                    chord.chordShapes[0].frets[4] != 0 && 
-                    chord.chordShapes[0].frets[4] === pos && 
-                    <div className="dot" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
-                  ))}
-                  {frets.map((pos, i) => (
-                    chord.chordShapes[0].frets[5] != 0 && 
-                    chord.chordShapes[0].frets[5] === pos && 
-                    <div className="dot-two" style={{top: `${(pos * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
-                  ))}
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret">
-                  </div>
-                  <div className="fret-last">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="chord-display-label">
-                <div>E</div>
-                <div>A</div>
-                <div>D</div>
-                <div>G</div>
-                <div>B</div>
-                <div>E</div>
-              </div>
-          </div>
+        {displayedChords.map((chord, index) => (
+          <DisplayUniqueLayout key={chord.id} chord={chord} index={index} displayedChords={displayedChords} setDisplayedChords={setDisplayedChords}></DisplayUniqueLayout>
         ))}
       </div>
     </div>
