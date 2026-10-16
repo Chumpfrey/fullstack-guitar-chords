@@ -22,6 +22,9 @@ public class ChordGenerator {
 
     private static final String[] major = {"WW", "HW"};
     private static final String[] minor = {"WH", "WW"};
+    private static final String[] maj7 = {"WW", "HW", "WW"};
+    private static final String[] min7 = {"WH", "WW", "WH"};
+    private static final String[] dom7 = {"WW", "HW", "WH"};
     private static final Map<String, Integer> fretNotes = fretboard.getMap();
 
     public ArrayList<Chord> generateChords(String[] chordInstructions, String chordType) {
@@ -173,6 +176,17 @@ public class ChordGenerator {
         return result;
     }
 
+    public ArrayList<ChordShape> removeDuplicateShapes(ArrayList<ChordShape> shapes) {
+        ArrayList<ChordShape> memory = new ArrayList<ChordShape>();
+
+        for (ChordShape shape : shapes) {
+            if (!memory.contains(shape))
+                memory.add(shape);
+        }
+
+        return memory;
+    }
+
     public void generateChordShapes(ArrayList<Chord> chords) {
         for (Chord chord : chords) {
             ArrayList<ChordShape> shapes = new ArrayList<ChordShape>();
@@ -191,6 +205,22 @@ public class ChordGenerator {
                         possibility.get(4).getFret(),
                         possibility.get(5).getFret()
                     };
+
+                    // Enforces fretShape has at least one of each note building the chord.
+                    // Ex) Cmaj7 is C E G B. There should be at minimum one of each note in the chord.
+                    ArrayList<String> memory = new ArrayList<String>(chord.getNotes());
+
+                    int[][] strings = fretboard.getStrings();
+                    for (int string = 0; string < NUM_STRINGS; ++string) {
+                        String currNote = fretboard.mapFindKey(strings[string][fretShape[string]]);
+
+                        if (memory.contains(currNote))
+                            memory.remove(currNote);
+                    }
+
+                    if (memory.size() > 0)
+                        continue;
+
                     shape.setFret(fretShape);
 
                     int[] fingering = generateFingering(possibility);
@@ -208,7 +238,7 @@ public class ChordGenerator {
                         shapes.add(shape);
                 }
             }
-            chord.setChordShapes(shapes);
+            chord.setChordShapes(removeDuplicateShapes(shapes));
         }
     }
 
@@ -224,5 +254,17 @@ public class ChordGenerator {
         ArrayList<Chord> minorChords = generateChords(minor, "minor");
         generateChordShapes(minorChords);
         chords.add(minorChords);
+
+        ArrayList<Chord> maj7Chords = generateChords(maj7, "maj7");
+        generateChordShapes(maj7Chords);
+        chords.add(maj7Chords);
+
+        ArrayList<Chord> min7Chords = generateChords(min7, "min7");
+        generateChordShapes(min7Chords);
+        chords.add(min7Chords);
+
+        ArrayList<Chord> dom7Chords = generateChords(dom7, "7");
+        generateChordShapes(dom7Chords);
+        chords.add(dom7Chords);
     }
 }

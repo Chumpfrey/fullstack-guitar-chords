@@ -18,6 +18,26 @@ public class ChordShape {
         this.fingers = fingers;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof ChordShape) {
+            ChordShape shape = (ChordShape)obj;
+            for (int fret = 0; fret < shape.getFrets().length; ++fret) {
+                if (this.frets[fret] != shape.getFrets()[fret])
+                    return false;
+            }
+
+            for (int finger = 0; finger < shape.getFingers().length; ++finger) {
+                if (this.fingers[finger] != shape.getFingers()[finger])
+                    return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
     public int[] getFrets() {
         return this.frets;
     }

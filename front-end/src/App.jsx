@@ -35,6 +35,24 @@ function DisplayUniqueLayout({chord, index, displayedChords, setDisplayedChords}
     }
   }
 
+  function isBarre(frets) {
+    var length = frets.length;
+    var smallestFret = smallestElement(frets);
+    var consecutiveNotes = 0;
+
+    if(smallestFret == 0)
+      return false;
+
+    for(let i = length - 1; i >= 0; --i) {
+      if(frets[i] >= smallestFret)
+        ++consecutiveNotes;
+      else
+        break;
+    }
+
+    return consecutiveNotes >= 2;
+  }
+
   function smallestElement(list) {
     if(list.length < 0)
       return 0;
@@ -59,7 +77,7 @@ function DisplayUniqueLayout({chord, index, displayedChords, setDisplayedChords}
           &gt;
         </button>
         <div className="display-title">
-          {chord.name} {chord.type} {smallestElement(chord.chordShapes[layoutIndex].frets)} {chord.chordShapes[layoutIndex].frets}
+          {chord.name} {chord.type}
         </div>
         <button className="left-button" onClick={() => changeLayoutIndex((layoutIndex - 1) < 0 ? (chord.chordShapes.length - 1) : layoutIndex - 1)}>
           &lt;
@@ -67,11 +85,15 @@ function DisplayUniqueLayout({chord, index, displayedChords, setDisplayedChords}
       </div>
       <div className="chord-display">
         <div className="fretboard">
+          {isBarre(chord.chordShapes[layoutIndex].frets) && <div className="barre"></div>}
+          {isBarre(chord.chordShapes[layoutIndex].frets) && <div className="base-fret">{smallestElement(chord.chordShapes[layoutIndex].frets)}</div>}
           <div className="string-first">
             {frets.map((pos, i) => (
-              chord.chordShapes[layoutIndex].frets[0] != 0 && 
-              chord.chordShapes[layoutIndex].frets[0] === pos && 
-              <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+              <div key={i}>
+                {chord.chordShapes[layoutIndex].frets[0] != 0 && 
+                chord.chordShapes[layoutIndex].frets[0] === pos && 
+                <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 2 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>}
+              </div>
             ))}
             <div className="fret"/>
             <div className="fret"/>
@@ -81,9 +103,11 @@ function DisplayUniqueLayout({chord, index, displayedChords, setDisplayedChords}
           </div>
           <div className="string">
             {frets.map((pos, i) => (
-              chord.chordShapes[layoutIndex].frets[1] != 0 && 
-              chord.chordShapes[layoutIndex].frets[1] === pos && 
-              <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+              <div key={i}>
+                {chord.chordShapes[layoutIndex].frets[1] != 0 && 
+                chord.chordShapes[layoutIndex].frets[1] === pos && 
+                <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 2 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>}
+              </div>
             ))}
             <div className="fret"/>
             <div className="fret"/>
@@ -93,9 +117,11 @@ function DisplayUniqueLayout({chord, index, displayedChords, setDisplayedChords}
           </div>
           <div className="string">
             {frets.map((pos, i) => (
-              chord.chordShapes[layoutIndex].frets[2] != 0 && 
-              chord.chordShapes[layoutIndex].frets[2] === pos && 
-              <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+              <div key={i}>
+                {chord.chordShapes[layoutIndex].frets[2] != 0 && 
+                chord.chordShapes[layoutIndex].frets[2] === pos && 
+                <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 2 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>}
+              </div>
             ))}
             <div className="fret"/>
             <div className="fret"/>
@@ -105,9 +131,11 @@ function DisplayUniqueLayout({chord, index, displayedChords, setDisplayedChords}
           </div>
           <div className="string">
             {frets.map((pos, i) => (
-              chord.chordShapes[layoutIndex].frets[3] != 0 && 
-              chord.chordShapes[layoutIndex].frets[3] === pos && 
-              <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+              <div key={i}>
+                {chord.chordShapes[layoutIndex].frets[3] != 0 && 
+                chord.chordShapes[layoutIndex].frets[3] === pos && 
+                <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 2 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>}
+              </div>
             ))}
             <div className="fret"/>
             <div className="fret"/>
@@ -117,14 +145,18 @@ function DisplayUniqueLayout({chord, index, displayedChords, setDisplayedChords}
           </div>
           <div className="string">
             {frets.map((pos, i) => (
-              chord.chordShapes[layoutIndex].frets[4] != 0 && 
-              chord.chordShapes[layoutIndex].frets[4] === pos && 
-              <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+              <div key={i}>
+                {chord.chordShapes[layoutIndex].frets[4] != 0 && 
+                chord.chordShapes[layoutIndex].frets[4] === pos && 
+                <div className="dot" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 2 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>}
+              </div>
             ))}
             {frets.map((pos, i) => (
-              chord.chordShapes[layoutIndex].frets[5] != 0 && 
-              chord.chordShapes[layoutIndex].frets[5] === pos && 
-              <div className="dot-two" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 3 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>
+              <div key={i}>
+                {chord.chordShapes[layoutIndex].frets[5] != 0 && 
+                chord.chordShapes[layoutIndex].frets[5] === pos && 
+                <div className="dot-two" style={{top: `${smallestElement(chord.chordShapes[layoutIndex].frets) >= 2 ? (((pos - smallestElement(chord.chordShapes[layoutIndex].frets)) % NUM_POSITIONS) * STRING_Y_POS_SCALE) + ((3 * STRING_Y_POS_SCALE) / 2) : ((pos % NUM_POSITIONS) * STRING_Y_POS_SCALE) + (STRING_Y_POS_SCALE / 2)}px`}}></div>}
+              </div>
             ))}
             <div className="fret"/>
             <div className="fret"/>
@@ -175,7 +207,10 @@ function App() {
   const types = [
     "[Type]",
     "Major",
-    "Minor"
+    "Minor",
+    "Maj7",
+    "Min7",
+    "7"
   ];
 
   useEffect(() => {
@@ -253,7 +288,7 @@ function App() {
       </div>
       <div id="chord-track">
         {displayedChords.map((chord, index) => (
-          <DisplayUniqueLayout key={chord.id} chord={chord} index={index} displayedChords={displayedChords} setDisplayedChords={setDisplayedChords}></DisplayUniqueLayout>
+          <DisplayUniqueLayout key={index} chord={chord} index={index} displayedChords={displayedChords} setDisplayedChords={setDisplayedChords}></DisplayUniqueLayout>
         ))}
       </div>
     </div>

@@ -60,6 +60,24 @@ body {
     height: 30px;
 }
 
+.barre {
+    border: solid;
+    background-color: var(--color-five);
+    color: var(--color-five);
+    height: 10px;
+    margin-left: -18px;
+    margin-top: 16px;
+    position: absolute;
+    width: 160px;
+}
+
+.base-fret {
+    color: var(--color-five);
+    margin-left: -20px;
+    margin-top: 30px;
+    position: absolute;
+}
+
 .chord-display {
     border: solid;
     border-left: 0px;
@@ -187,5 +205,5 @@ body {
     border-color: var(--color-four);
     display: grid;
     margin-bottom: 20px;
-    margin-right: 20px;
+    margin-right: 40px;
 }

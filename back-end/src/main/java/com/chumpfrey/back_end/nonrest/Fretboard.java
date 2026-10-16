@@ -63,6 +63,10 @@ public class Fretboard {
         return result;
     }
 
+    public int[][] getStrings() {
+        return this.strings;
+    }
+
     public Map<String, Integer> getMap() {
         return this.fretNotes;
     }
