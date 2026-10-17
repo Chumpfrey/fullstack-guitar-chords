@@ -56,6 +56,7 @@ body {
 
 #type-container {
     margin-top: 10px;
+    margin-top: 10px;
     position: relative;
     height: 30px;
 }
@@ -206,4 +207,24 @@ body {
     display: grid;
     margin-bottom: 20px;
     margin-right: 40px;
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+    .note-button {
+        background-color: var(--color-one);
+        border-color: var(--color-four);
+        font-size: 20px;
+        height: 40px;
+        width: 40px;
+    }
+
+    .note-button.selected {
+        background-color: var(--color-one);
+        border-color: var(--color-one);
+        font-size: 20px;
+        height: 40px;
+        width: 40px;
+    }
 }

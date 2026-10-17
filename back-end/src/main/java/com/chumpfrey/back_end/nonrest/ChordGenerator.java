@@ -217,13 +217,25 @@ public class ChordGenerator {
                         if (memory.contains(currNote))
                             memory.remove(currNote);
                     }
-
+                    
+                    // Trash current fretShape if one of each note isn't present
                     if (memory.size() > 0)
-                        continue;
+                        continue;     
 
                     shape.setFret(fretShape);
 
                     int[] fingering = generateFingering(possibility);
+
+                    // Prevent shapes with pinky barre
+                    int instances = 0;
+                    /*for (int finger : fingering) {
+                        if (finger == PINKY_VALUE)
+                            ++instances;
+                    }
+
+                    if (instances >= 2)
+                        continue;*/
+
                     shape.setFinger(fingering);
 
                     boolean validShape = true;
