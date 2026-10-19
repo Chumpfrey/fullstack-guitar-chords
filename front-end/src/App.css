@@ -209,8 +209,6 @@ body {
     margin-right: 40px;
 }
 
-
-
 @media only screen and (max-width: 1200px) {
     .note-button {
         background-color: var(--color-one);
