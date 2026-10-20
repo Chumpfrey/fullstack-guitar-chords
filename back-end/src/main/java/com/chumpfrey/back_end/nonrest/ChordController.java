@@ -14,11 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chumpfrey.back_end.BackEndApplication;
 
 
-@CrossOrigin(origins = {
-    "http://localhost:5173",
-    "http://192.168.1.85:5173",
-    "http://192.168.0.243:5173"
-})
+@CrossOrigin(origins = "${FRONTEND_URL}")
 @RestController
 public class ChordController {
     private final BackEndApplication backEndApplication;
