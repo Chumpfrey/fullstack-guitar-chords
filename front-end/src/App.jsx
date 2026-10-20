@@ -214,7 +214,7 @@ function App() {
   ];
 
   useEffect(() => {
-    fetch(import.meta.env.BACKEND_URL)
+    fetch(import.meta.env.VITE_BACKEND_URL)
       .then(response => response.json())
       .then(data => setChords(data));
   }, []);
