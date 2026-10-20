@@ -1,19 +1,17 @@
 # Tech stacks
 
 ## Front end: React
-### Seems industry standard and important to learn.
-### The generated React template is stored in the front-end folder.
 
-## Back end:
-### Java
-### Back end logic is predictably stored in the back-end folder.
+## Back end: Spring Boot
 
-## Database: 
-### PostgreSQL
+## Database: PostgreSQL
 
 
 
-# Concrete goals
+
+# Current limitations
+## The pipeline from the frontend to backend to database functions properly, but some backend specific logic is incomplete. Currently, some extra unplayable chord shapes need to be filtered out, certain finger assignments are incorrect and need to implement string muting.
+
 
 
 
@@ -70,21 +68,6 @@
 ## JS copy array not a reference
 ### https://stackoverflow.com/questions/7486085/how-to-create-a-copy-of-a-javascript-array-instead-of-a-reference
 
-
-
-
-# Useful memos for self
-
-## This command runs the front end
-'''shell
-npm run dev
-'''
-
-## This command runs the back end
-## Access through http://localhost:8080
-'''shell
-./mvnw spring-boot:run
-'''
 
 
 
