@@ -214,7 +214,7 @@ function App() {
   ];
 
   useEffect(() => {
-    fetch("http://192.168.1.85:8080/chords")
+    fetch(import.meta.env.BACKEND_URL)
       .then(response => response.json())
       .then(data => setChords(data));
   }, []);
